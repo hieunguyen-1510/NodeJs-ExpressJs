@@ -6,21 +6,16 @@
             <input type="text" class="form-control" id="name" name="name" required>
         </div>
         <div class="form-group">
-            <label for="description">Mô tả</label>
-            <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+             <label for="description">Mô tả</label>
+            <input type="text" class="form-control" id="description" name="description" required>
         </div>
         <div class="form-group">
             <label for="videoId">Video ID</label>
             <input type="text" class="form-control" id="videoId" name="videoId" required>
         </div>
-        <div class="form-group">
+            <div class="form-group">
             <label for="level">Trình độ</label>
-            <select class="form-control" id="level" name="level" required>
-                <option value="">Chọn trình độ</option>
-                <option value="beginner">Beginner</option>
-                <option value="intermediate">Intermediate</option>
-                <option value="advanced">Advanced</option>
-            </select>
+            <input type="text" class="form-control" id="level" name="level" value="{{course.level}}" required placeholder="Nhập trình độ">
         </div>
         <button type="submit" class="btn btn-primary">Thêm khóa học</button>
     </form>
