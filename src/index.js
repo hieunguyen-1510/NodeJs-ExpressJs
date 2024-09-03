@@ -4,42 +4,43 @@ const morgan = require('morgan');
 const methodOverride = require('method-override');
 const handlebars = require('express-handlebars');
 const db = require('./config/db');
+
 // Connect to DB
-db.connect();
+db.connect().catch(error => {
+    console.error('Database connection failed:', error);
+    process.exit(1); 
+});
+
 const app = express();
 
 const port = 3000;
 
 const route = require('./routes');
 
+
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(
-    express.urlencoded({
-        extended: true,
-    }),
-);
+// Middleware
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+// app.use(morgan('combined'));
 
 app.use(methodOverride('_method'));
 
-// HTTP logger (uncomment if needed)
-// app.use(morgan('combined'));
-
-// Template engine
+//Template engine Handlebars
 app.engine(
     'hbs',
     handlebars.engine({
         extname: '.hbs',
         helpers: {
-            sum : (a,b) => a+b,
-        }
+            sum: (a, b) => a + b,
+        },
     }),
 );
 app.set('view engine', 'hbs');
-app.set('views', path.join(__dirname, 'resources','views'));
+app.set('views', path.join(__dirname, 'resources', 'views'));
 
-// Routes init
+// Khởi tạo các route
 route(app);
 
 app.listen(port, () => {
